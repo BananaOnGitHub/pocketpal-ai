@@ -389,10 +389,7 @@ jobs:
   build-ios:
     runs-on: macos-26  # Keep CI on the same Xcode major as the release workflow
     needs: [build-and-test, detect-changes]
-    # The fork's unsigned IPA workflow already builds for iOS on pushes to main.
-    if: >-
-      needs.detect-changes.outputs.translation_only != 'true' &&
-      (github.repository != 'BananaOnGitHub/pocketpal-ai' || github.event_name != 'push')
+    if: needs.detect-changes.outputs.translation_only != 'true'
     env:
       NODE_OPTIONS: '--max-old-space-size=8192'
     steps:
